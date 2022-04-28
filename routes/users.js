@@ -14,10 +14,19 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     const user = req.body;
 
-    // create a new object which represents the user and then spread all the properties of the user
-    // plus create an ID
+    // spread all the properties of the user plus create an ID
     users.push({ ...user, id: uuidv4() });
     res.send(`User with the name ${user.firstName} added to the database!`);
+});
+
+// new route for different users
+router.get('/:id', (req, res) => {
+    const { id } = req.params;
+
+    // send the user data for a specific id
+    const foundUser = users.find((user) => user.id === id);
+
+    res.send(foundUser);
 });
 
 export default router;
